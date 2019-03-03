@@ -18,8 +18,8 @@
  */
 package com.l2jserver.cli.command.account;
 
-import static com.l2jserver.cli.dao.AccountDAO.listAccounts;
-
+import com.l2jserver.cli.command.AbstractCommand;
+import com.l2jserver.cli.dao.AccountDAO;
 import com.l2jserver.cli.model.AccountListType;
 
 import picocli.CommandLine.Command;
@@ -30,7 +30,7 @@ import picocli.CommandLine.Option;
  * @author Zoey76
  */
 @Command(name = "list")
-public class AccountListCommand implements Runnable {
+public class AccountListCommand extends AbstractCommand {
 	
 	@Option(names = {
 		"-t",
@@ -42,6 +42,6 @@ public class AccountListCommand implements Runnable {
 	public void run() {
 		System.out.println("Listing " + accountListType.name().toLowerCase() + " accounts...");
 		
-		listAccounts(accountListType).entrySet().forEach(a -> System.out.println(a.getKey() + " (" + a.getValue() + ")"));
+		AccountDAO.getInstance().listAccounts(accountListType).entrySet().forEach(a -> System.out.println(a.getKey() + " (" + a.getValue() + ")"));
 	}
 }

@@ -18,29 +18,20 @@
  */
 package com.l2jserver.cli.command;
 
-import com.l2jserver.cli.command.account.AccountCreateCommand;
-import com.l2jserver.cli.command.account.AccountDeleteCommand;
-import com.l2jserver.cli.command.account.AccountListCommand;
-import com.l2jserver.cli.command.account.AccountUpdateCommand;
-
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
+import java.io.FilterInputStream;
+import java.io.IOException;
 
 /**
- * Account command.
+ * Abstract command.
  * @author Zoey76
  */
-@Command(name = "account", subcommands = { //
-	AccountCreateCommand.class, //
-	AccountUpdateCommand.class, //
-	AccountListCommand.class, //
-	AccountDeleteCommand.class //
-})
-public class AccountCommand extends AbstractCommand {
+public abstract class AbstractCommand implements Runnable {
+	protected static final String YES = "y";
 	
-	@Override
-	public void run() {
-		System.err.println("Please invoke a subcommand");
-		new CommandLine(new AccountCommand()).usage(System.out);
-	}
+	protected static final FilterInputStream FILTER_INPUT_STREAM = new FilterInputStream(System.in) {
+		@Override
+		public void close() throws IOException {
+			// Do not close it.
+		}
+	};
 }

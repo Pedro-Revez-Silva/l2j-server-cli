@@ -18,6 +18,7 @@
  */
 package com.l2jserver.cli.command.account;
 
+import com.l2jserver.cli.command.AbstractCommand;
 import com.l2jserver.cli.dao.AccountDAO;
 
 import picocli.CommandLine.Command;
@@ -28,7 +29,7 @@ import picocli.CommandLine.Option;
  * @author Zoey76
  */
 @Command(name = "create")
-public class AccountCreateCommand implements Runnable {
+public class AccountCreateCommand extends AbstractCommand {
 	
 	@Option(names = {
 		"-u",
@@ -52,6 +53,6 @@ public class AccountCreateCommand implements Runnable {
 	public void run() {
 		System.out.println("Creating account " + username + "...");
 		
-		AccountDAO.upsert(username, password, accessLevel);
+		AccountDAO.getInstance().upsert(username, password, accessLevel);
 	}
 }

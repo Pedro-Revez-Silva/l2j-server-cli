@@ -25,6 +25,7 @@ import java.util.concurrent.Callable;
 import com.l2jserver.cli.command.AccountCommand;
 import com.l2jserver.cli.command.BuildCommand;
 import com.l2jserver.cli.command.CodeCommand;
+import com.l2jserver.cli.command.DatabaseCommand;
 import com.l2jserver.cli.command.DeployCommand;
 import com.l2jserver.cli.command.QuitCommand;
 
@@ -35,10 +36,11 @@ import picocli.CommandLine.Command;
  * L2J Server CLI.
  * @author Zoey76
  */
-@Command(name = "l2j", version = "1.0", subcommands = { //
+@Command(name = "", version = "1.0", subcommands = { //
 	CodeCommand.class, //
 	BuildCommand.class, //
 	DeployCommand.class, //
+	DatabaseCommand.class, //
 	AccountCommand.class, //
 	QuitCommand.class //
 })
@@ -53,8 +55,7 @@ public class L2JServerCLI implements Callable<Void> {
 				final String[] args = br.readLine().split(" ");
 				CommandLine.call(new L2JServerCLI(), args);
 			}
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return null;

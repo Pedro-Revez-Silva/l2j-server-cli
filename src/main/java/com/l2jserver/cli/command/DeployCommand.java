@@ -25,7 +25,7 @@ import picocli.CommandLine.Command;
  * @author Zoey76
  */
 @Command(name = "deploy")
-public class DeployCommand implements Runnable {
+public class DeployCommand extends AbstractCommand {
 	
 	@Override
 	public void run() {

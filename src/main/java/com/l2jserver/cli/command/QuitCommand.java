@@ -25,7 +25,7 @@ import picocli.CommandLine.Command;
  * @author Zoey76
  */
 @Command(name = "quit")
-public class QuitCommand implements Runnable {
+public class QuitCommand extends AbstractCommand {
 	
 	@Override
 	public void run() {

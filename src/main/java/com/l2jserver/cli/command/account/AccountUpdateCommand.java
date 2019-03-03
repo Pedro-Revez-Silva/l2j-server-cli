@@ -18,6 +18,7 @@
  */
 package com.l2jserver.cli.command.account;
 
+import com.l2jserver.cli.command.AbstractCommand;
 import com.l2jserver.cli.dao.AccountDAO;
 
 import picocli.CommandLine.Command;
@@ -28,7 +29,7 @@ import picocli.CommandLine.Option;
  * @author Zoey76
  */
 @Command(name = "update")
-public class AccountUpdateCommand implements Runnable {
+public class AccountUpdateCommand extends AbstractCommand {
 	
 	@Option(names = {
 		"-u",
@@ -53,7 +54,7 @@ public class AccountUpdateCommand implements Runnable {
 		System.out.println("Updating account " + username + " (" + accessLevel + ")");
 		
 		if (password != null && accessLevel != null) {
-			final var createdUpdated = AccountDAO.upsert(username, password, accessLevel);
+			final var createdUpdated = AccountDAO.getInstance().upsert(username, password, accessLevel);
 			if (createdUpdated) {
 				System.out.println("Account " + username + " has been created or updated.");
 			}
@@ -61,7 +62,7 @@ public class AccountUpdateCommand implements Runnable {
 		}
 		
 		if (accessLevel != null) {
-			final var updated = AccountDAO.changeAccountLevel(username, accessLevel);
+			final var updated = AccountDAO.getInstance().changeAccountLevel(username, accessLevel);
 			if (updated) {
 				System.out.println("Account " + username + " has been updated.");
 			} else {

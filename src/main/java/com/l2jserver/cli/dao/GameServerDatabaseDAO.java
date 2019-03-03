@@ -16,31 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jserver.cli.command;
+package com.l2jserver.cli.dao;
 
-import com.l2jserver.cli.command.account.AccountCreateCommand;
-import com.l2jserver.cli.command.account.AccountDeleteCommand;
-import com.l2jserver.cli.command.account.AccountListCommand;
-import com.l2jserver.cli.command.account.AccountUpdateCommand;
+import static com.l2jserver.cli.config.Configs.gameServer;
 
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
+import java.io.File;
+
+import com.l2jserver.cli.model.DatabaseInstallType;
 
 /**
- * Account command.
+ * Game Server Database DAO.
  * @author Zoey76
  */
-@Command(name = "account", subcommands = { //
-	AccountCreateCommand.class, //
-	AccountUpdateCommand.class, //
-	AccountListCommand.class, //
-	AccountDeleteCommand.class //
-})
-public class AccountCommand extends AbstractCommand {
+public class GameServerDatabaseDAO extends AbstractDatabaseDAO {
+	
+	public GameServerDatabaseDAO() {
+		super(gameServer().db().host(), gameServer().db().port(), gameServer().db().name(), gameServer().db().user(), gameServer().db().password());
+	}
 	
 	@Override
-	public void run() {
-		System.err.println("Please invoke a subcommand");
-		new CommandLine(new AccountCommand()).usage(System.out);
+	public void updates(DatabaseInstallType mode, File sqlPath) {
+		this.updates(mode, "sql/cleanup/gs_cleanup.sql", sqlPath);
 	}
 }

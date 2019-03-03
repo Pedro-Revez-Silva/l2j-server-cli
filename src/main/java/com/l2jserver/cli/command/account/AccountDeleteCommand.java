@@ -18,10 +18,9 @@
  */
 package com.l2jserver.cli.command.account;
 
-import java.io.FilterInputStream;
-import java.io.IOException;
 import java.util.Scanner;
 
+import com.l2jserver.cli.command.AbstractCommand;
 import com.l2jserver.cli.dao.AccountDAO;
 
 import picocli.CommandLine.Command;
@@ -32,16 +31,7 @@ import picocli.CommandLine.Option;
  * @author Zoey76
  */
 @Command(name = "delete")
-public class AccountDeleteCommand implements Runnable {
-	
-	private static final String YES = "y";
-	
-	private static final FilterInputStream FILTER_INPUT_STREAM = new FilterInputStream(System.in) {
-		@Override
-		public void close() throws IOException {
-			// Do not close it.
-		}
-	};
+public class AccountDeleteCommand extends AbstractCommand {
 	
 	@Option(names = {
 		"-u",
@@ -57,7 +47,7 @@ public class AccountDeleteCommand implements Runnable {
 		System.out.print("Do you really want to delete this account? y/N: ");
 		try (var s = new Scanner(FILTER_INPUT_STREAM)) {
 			if (YES.equalsIgnoreCase(s.next())) {
-				final var deleted = AccountDAO.delete(username);
+				final var deleted = AccountDAO.getInstance().delete(username);
 				if (deleted) {
 					System.out.println("Account " + username + " has been deleted.");
 				} else {

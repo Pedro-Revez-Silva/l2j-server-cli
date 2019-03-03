@@ -35,7 +35,7 @@ import picocli.CommandLine.Option;
  * @author Zoey76
  */
 @Command(name = "code")
-public class CodeCommand implements Runnable {
+public class CodeCommand extends AbstractCommand {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CodeCommand.class);
 	
@@ -79,8 +79,7 @@ public class CodeCommand implements Runnable {
 					break;
 				}
 			}
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			LOG.error("Unable to get the code!", ex);
 		}
 	}
@@ -92,8 +91,7 @@ public class CodeCommand implements Runnable {
 				.setDirectory(directory) //
 				.setProgressMonitor(LOGGER_PROGRESS_MONITOR) //
 				.call();
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			LOG.error("Unable to get the code!", ex);
 		}
 	}

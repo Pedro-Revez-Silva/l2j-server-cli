@@ -7,6 +7,8 @@ Existing commands
 - code: gets the source code from the repository
 - build: builds the source code
 - deploy: deploys the built source code
+- database
+  - install: installs the database
 - account
   - create: creates an account
   - update: updates an account

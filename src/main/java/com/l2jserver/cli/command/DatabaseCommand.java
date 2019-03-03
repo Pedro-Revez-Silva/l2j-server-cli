@@ -18,29 +18,23 @@
  */
 package com.l2jserver.cli.command;
 
-import com.l2jserver.cli.command.account.AccountCreateCommand;
-import com.l2jserver.cli.command.account.AccountDeleteCommand;
-import com.l2jserver.cli.command.account.AccountListCommand;
-import com.l2jserver.cli.command.account.AccountUpdateCommand;
+import com.l2jserver.cli.command.database.DatabaseInstallCommand;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 /**
- * Account command.
+ * Database command.
  * @author Zoey76
  */
-@Command(name = "account", subcommands = { //
-	AccountCreateCommand.class, //
-	AccountUpdateCommand.class, //
-	AccountListCommand.class, //
-	AccountDeleteCommand.class //
+@Command(name = "database", subcommands = { //
+	DatabaseInstallCommand.class
 })
-public class AccountCommand extends AbstractCommand {
+public class DatabaseCommand extends AbstractCommand {
 	
 	@Override
 	public void run() {
 		System.err.println("Please invoke a subcommand");
-		new CommandLine(new AccountCommand()).usage(System.out);
+		new CommandLine(new DatabaseCommand()).usage(System.out);
 	}
 }

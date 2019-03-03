@@ -18,6 +18,7 @@
  */
 package com.l2jserver.cli.dao;
 
+import static com.l2jserver.cli.config.Configs.loginServer;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.security.MessageDigest;
@@ -48,7 +49,11 @@ public class AccountDAO extends AbstractDAO {
 	
 	private static final String ALGORITHM = "SHA";
 	
-	public static boolean upsert(String username, String password, int accessLevel) {
+	private AccountDAO() {
+		super(loginServer().db().host(), loginServer().db().port(), loginServer().db().name(), loginServer().db().user(), loginServer().db().password());
+	}
+	
+	public boolean upsert(String username, String password, int accessLevel) {
 		try (var con = getConnection(); //
 			var ps = con.prepareStatement(REPLACE_ACCOUNT)) {
 			final var md = MessageDigest.getInstance(ALGORITHM);
@@ -58,27 +63,25 @@ public class AccountDAO extends AbstractDAO {
 			ps.setString(2, Base64.getEncoder().encodeToString(newPassword));
 			ps.setInt(3, accessLevel);
 			return ps.executeUpdate() > 0;
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			System.out.println("There was error while creating/updating account " + username + "!");
 		}
 		return false;
 	}
 	
-	public static boolean changeAccountLevel(String username, int accesslevel) {
+	public boolean changeAccountLevel(String username, int accesslevel) {
 		try (var con = getConnection(); //
 			var ps = con.prepareStatement(UPDATE_ACCOUNT_LEVEL)) {
 			ps.setInt(1, accesslevel);
 			ps.setString(2, username);
 			return ps.executeUpdate() > 0;
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			System.out.println("There was error while updating account " + username + " level!");
 		}
 		return false;
 	}
 	
-	public static Map<String, Integer> listAccounts(AccountListType accountListType) {
+	public Map<String, Integer> listAccounts(AccountListType accountListType) {
 		final var result = new HashMap<String, Integer>();
 		try (var con = getConnection(); //
 			var st = con.createStatement(); //
@@ -86,22 +89,29 @@ public class AccountDAO extends AbstractDAO {
 			while (rs.next()) {
 				result.put(rs.getString("login"), rs.getInt("accessLevel"));
 			}
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			System.out.println("There was error while listing " + accountListType.name().toLowerCase() + " accounts!");
+			ex.printStackTrace();
 		}
 		return result;
 	}
 	
-	public static boolean delete(String username) {
+	public boolean delete(String username) {
 		try (var con = getConnection(); //
 			var ps = con.prepareStatement(DELETE_ACCOUNT)) {
 			ps.setString(1, username);
 			return ps.executeUpdate() > 0;
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			System.out.println("There was error while deleting account " + username + "!");
 		}
 		return false;
+	}
+	
+	public static AccountDAO getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private static class SingletonHolder {
+		protected static final AccountDAO INSTANCE = new AccountDAO();
 	}
 }

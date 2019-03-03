@@ -16,31 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jserver.cli.command;
+package com.l2jserver.cli.util;
 
-import com.l2jserver.cli.command.account.AccountCreateCommand;
-import com.l2jserver.cli.command.account.AccountDeleteCommand;
-import com.l2jserver.cli.command.account.AccountListCommand;
-import com.l2jserver.cli.command.account.AccountUpdateCommand;
-
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
+import java.io.File;
+import java.io.FileFilter;
 
 /**
- * Account command.
+ * Specialized {@link FileFilter} class.<br>
+ * Accepts <b>files</b> ending with ".sql" only.
  * @author Zoey76
  */
-@Command(name = "account", subcommands = { //
-	AccountCreateCommand.class, //
-	AccountUpdateCommand.class, //
-	AccountListCommand.class, //
-	AccountDeleteCommand.class //
-})
-public class AccountCommand extends AbstractCommand {
-	
+public class SQLFilter implements FileFilter {
 	@Override
-	public void run() {
-		System.err.println("Please invoke a subcommand");
-		new CommandLine(new AccountCommand()).usage(System.out);
+	public boolean accept(File f) {
+		if ((f == null) || !f.isFile()) {
+			return false;
+		}
+		return f.getName().toLowerCase().endsWith(".sql");
 	}
 }

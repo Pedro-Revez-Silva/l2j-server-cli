@@ -16,31 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jserver.cli.command;
-
-import com.l2jserver.cli.command.account.AccountCreateCommand;
-import com.l2jserver.cli.command.account.AccountDeleteCommand;
-import com.l2jserver.cli.command.account.AccountListCommand;
-import com.l2jserver.cli.command.account.AccountUpdateCommand;
-
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
+package com.l2jserver.cli.config;
 
 /**
- * Account command.
+ * Login Server configuration interface.
  * @author Zoey76
  */
-@Command(name = "account", subcommands = { //
-	AccountCreateCommand.class, //
-	AccountUpdateCommand.class, //
-	AccountListCommand.class, //
-	AccountDeleteCommand.class //
-})
-public class AccountCommand extends AbstractCommand {
-	
-	@Override
-	public void run() {
-		System.err.println("Please invoke a subcommand");
-		new CommandLine(new AccountCommand()).usage(System.out);
-	}
+public interface LoginServerConfiguration {
+	DatabaseConfiguration db();
 }

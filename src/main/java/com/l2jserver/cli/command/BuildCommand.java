@@ -25,7 +25,7 @@ import picocli.CommandLine.Command;
  * @author Zoey76
  */
 @Command(name = "build")
-public class BuildCommand implements Runnable {
+public class BuildCommand extends AbstractCommand {
 	
 	@Override
 	public void run() {
