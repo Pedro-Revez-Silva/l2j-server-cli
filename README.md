@@ -19,3 +19,4 @@ Existing commands
   - list: list the accounts
   - delete: deletes the account
 - quit: exits the CLI
+- config: opens the configuration editor GUI (It's a bonus)

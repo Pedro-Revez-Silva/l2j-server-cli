@@ -25,6 +25,7 @@ import java.util.concurrent.Callable;
 import com.l2jserver.cli.command.AccountCommand;
 import com.l2jserver.cli.command.BuildCommand;
 import com.l2jserver.cli.command.CodeCommand;
+import com.l2jserver.cli.command.ConfigurationEditorGUICommand;
 import com.l2jserver.cli.command.DatabaseCommand;
 import com.l2jserver.cli.command.DeployCommand;
 import com.l2jserver.cli.command.GameServerCommand;
@@ -37,14 +38,15 @@ import picocli.CommandLine.Command;
  * L2J Server CLI.
  * @author Zoey76
  */
-@Command(name = "", version = "1.0", subcommands = { //
-	CodeCommand.class, //
-	BuildCommand.class, //
-	DeployCommand.class, //
-	DatabaseCommand.class, //
-	GameServerCommand.class, //
-	AccountCommand.class, //
-	QuitCommand.class //
+@Command(name = "", version = "1.0", subcommands = {
+	CodeCommand.class,
+	BuildCommand.class,
+	DeployCommand.class,
+	DatabaseCommand.class,
+	GameServerCommand.class,
+	AccountCommand.class,
+	QuitCommand.class,
+	ConfigurationEditorGUICommand.class
 })
 public class L2JServerCLI implements Callable<Void> {
 	
