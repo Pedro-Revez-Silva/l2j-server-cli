@@ -27,6 +27,7 @@ import com.l2jserver.cli.command.BuildCommand;
 import com.l2jserver.cli.command.CodeCommand;
 import com.l2jserver.cli.command.DatabaseCommand;
 import com.l2jserver.cli.command.DeployCommand;
+import com.l2jserver.cli.command.GameServerCommand;
 import com.l2jserver.cli.command.QuitCommand;
 
 import picocli.CommandLine;
@@ -41,6 +42,7 @@ import picocli.CommandLine.Command;
 	BuildCommand.class, //
 	DeployCommand.class, //
 	DatabaseCommand.class, //
+	GameServerCommand.class, //
 	AccountCommand.class, //
 	QuitCommand.class //
 })

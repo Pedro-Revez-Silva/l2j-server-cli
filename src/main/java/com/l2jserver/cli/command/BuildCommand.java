@@ -24,7 +24,7 @@ import picocli.CommandLine.Command;
  * Build command.
  * @author Zoey76
  */
-@Command(name = "build")
+@Command(name = "build", aliases = "b")
 public class BuildCommand extends AbstractCommand {
 	
 	@Override

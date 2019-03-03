@@ -27,7 +27,7 @@ import picocli.CommandLine.Command;
  * Database command.
  * @author Zoey76
  */
-@Command(name = "database", subcommands = { //
+@Command(name = "database", aliases = "db", subcommands = {
 	DatabaseInstallCommand.class
 })
 public class DatabaseCommand extends AbstractCommand {

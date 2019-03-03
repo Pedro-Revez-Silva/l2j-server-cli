@@ -24,7 +24,7 @@ import picocli.CommandLine.Command;
  * Quit command.
  * @author Zoey76
  */
-@Command(name = "quit")
+@Command(name = "quit", aliases = "q")
 public class QuitCommand extends AbstractCommand {
 	
 	@Override

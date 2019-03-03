@@ -34,7 +34,7 @@ import picocli.CommandLine.Option;
  * Code command.
  * @author Zoey76
  */
-@Command(name = "code")
+@Command(name = "code", aliases = "c")
 public class CodeCommand extends AbstractCommand {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CodeCommand.class);

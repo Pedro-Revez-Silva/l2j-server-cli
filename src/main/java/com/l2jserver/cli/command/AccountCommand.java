@@ -30,11 +30,11 @@ import picocli.CommandLine.Command;
  * Account command.
  * @author Zoey76
  */
-@Command(name = "account", subcommands = { //
-	AccountCreateCommand.class, //
-	AccountUpdateCommand.class, //
-	AccountListCommand.class, //
-	AccountDeleteCommand.class //
+@Command(name = "account", aliases = "a", subcommands = {
+	AccountCreateCommand.class,
+	AccountUpdateCommand.class,
+	AccountListCommand.class,
+	AccountDeleteCommand.class
 })
 public class AccountCommand extends AbstractCommand {
 	

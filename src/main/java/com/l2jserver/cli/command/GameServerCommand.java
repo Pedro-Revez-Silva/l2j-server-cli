@@ -18,18 +18,27 @@
  */
 package com.l2jserver.cli.command;
 
+import com.l2jserver.cli.command.gameserver.GameServerListCommand;
+import com.l2jserver.cli.command.gameserver.GameServerRegisterCommand;
+import com.l2jserver.cli.command.gameserver.GameServerUnregisterCommand;
+
+import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 /**
- * Deploy command.
+ * Game Server command implementation.
  * @author Zoey76
  */
-@Command(name = "deploy", aliases = "d")
-public class DeployCommand extends AbstractCommand {
+@Command(name = "gameserver", aliases = "gs", subcommands = {
+	GameServerRegisterCommand.class,
+	GameServerListCommand.class,
+	GameServerUnregisterCommand.class
+})
+public class GameServerCommand extends AbstractCommand {
 	
 	@Override
 	public void run() {
-		// TODO(Zoey76): Implement.
-		System.out.println("Deploying");
+		System.err.println("Please invoke a subcommand");
+		new CommandLine(new GameServerCommand()).usage(System.out);
 	}
 }
