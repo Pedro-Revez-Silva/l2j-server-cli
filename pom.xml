@@ -18,6 +18,10 @@
 		<commons-configuration2.version>2.4</commons-configuration2.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<asciitable.version>0.3.2</asciitable.version>
+		<!-- Plugins -->
+		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,4 +70,43 @@
 			<version>${asciitable.version}</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven-jar-plugin.version}</version>
+				<configuration>
+					<finalName>l2jcli</finalName>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>libs/</classpathPrefix>
+							<mainClass>com.l2jserver.cli.L2JServerCLI</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven-assembly-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>l2jcli</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/assembly/zip.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
