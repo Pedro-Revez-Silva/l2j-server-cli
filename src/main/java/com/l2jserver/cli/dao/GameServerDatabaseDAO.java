@@ -20,10 +20,6 @@ package com.l2jserver.cli.dao;
 
 import static com.l2jserver.cli.config.Configs.gameServer;
 
-import java.io.File;
-
-import com.l2jserver.cli.model.DatabaseInstallType;
-
 /**
  * Game Server Database DAO.
  * @author Zoey76
@@ -32,10 +28,5 @@ public class GameServerDatabaseDAO extends AbstractDatabaseDAO {
 	
 	public GameServerDatabaseDAO() {
 		super(gameServer().db().host(), gameServer().db().port(), gameServer().db().name(), gameServer().db().user(), gameServer().db().password());
-	}
-	
-	@Override
-	public void updates(DatabaseInstallType mode, File sqlPath) {
-		this.updates(mode, "sql/cleanup/gs_cleanup.sql", sqlPath);
 	}
 }

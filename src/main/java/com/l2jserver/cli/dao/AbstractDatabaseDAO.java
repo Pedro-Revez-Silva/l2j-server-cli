@@ -55,8 +55,6 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 		runSQLFiles(sqlPath.listFiles(new SQLFilter()));
 	}
 	
-	public abstract void updates(DatabaseInstallType mode, File sqlPath);
-	
 	protected void updates(DatabaseInstallType mode, String cleanup, File sqlPath) {
 		final var userPreferences = Preferences.userRoot();
 		final var updatePath = new File(sqlPath, "updates");
@@ -96,6 +94,10 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 				break;
 			}
 		}
+	}
+	
+	public void updates(DatabaseInstallType mode, File sqlPath) {
+		updates(mode, "cleanup/cleanup.sql", sqlPath);
 	}
 	
 	private void runSQLFiles(File... sqlFiles) {

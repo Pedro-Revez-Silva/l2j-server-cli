@@ -20,10 +20,6 @@ package com.l2jserver.cli.dao;
 
 import static com.l2jserver.cli.config.Configs.loginServer;
 
-import java.io.File;
-
-import com.l2jserver.cli.model.DatabaseInstallType;
-
 /**
  * Login Server Database DAO.
  * @author Zoey76
@@ -32,10 +28,5 @@ public class LoginServerDatabaseDAO extends AbstractDatabaseDAO {
 	
 	public LoginServerDatabaseDAO() {
 		super(loginServer().db().host(), loginServer().db().port(), loginServer().db().name(), loginServer().db().user(), loginServer().db().password());
-	}
-	
-	@Override
-	public void updates(DatabaseInstallType mode, File sqlPath) {
-		this.updates(mode, "sql/cleanup/ls_cleanup.sql", sqlPath);
 	}
 }
