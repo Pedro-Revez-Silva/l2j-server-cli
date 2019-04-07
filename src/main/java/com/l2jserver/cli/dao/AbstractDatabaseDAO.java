@@ -21,19 +21,21 @@ package com.l2jserver.cli.dao;
 import java.io.File;
 import java.util.prefs.Preferences;
 
+import com.l2jserver.cli.config.ServerConfiguration;
 import com.l2jserver.cli.model.DatabaseInstallType;
 import com.l2jserver.cli.util.SQLFilter;
 
 /**
  * Database DAO.
  * @author Zoey76
+ * @version 1.0.0
  */
 public abstract class AbstractDatabaseDAO extends AbstractDAO {
 	
-	AbstractDatabaseDAO(String host, int port, String database, String username, String password) {
-		super(host, port, database, username, password);
+	AbstractDatabaseDAO(ServerConfiguration server) {
+		super(server);
 	}
-	
+
 	public void mods(File sqlPath) {
 		final var modsPath = new File(sqlPath, "mods");
 		if (modsPath.exists()) {
@@ -64,7 +66,7 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 			case FULL: {
 				System.out.println("Executing cleanup script...");
 				
-				runSQLFiles(new File(ClassLoader.getSystemResource(cleanup).getFile()));
+				runSQLFiles(new File(sqlPath, cleanup));
 				
 				if (updatePath.exists()) {
 					final var sb = new StringBuilder();

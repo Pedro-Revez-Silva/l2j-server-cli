@@ -29,6 +29,7 @@ import picocli.CommandLine.Option;
 /**
  * Account delete command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "delete")
 public class AccountDeleteCommand extends AbstractCommand {

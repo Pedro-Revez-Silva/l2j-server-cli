@@ -18,15 +18,16 @@
  */
 package com.l2jserver.cli.dao;
 
-import static com.l2jserver.cli.config.Configs.gameServer;
+import com.l2jserver.cli.config.Configuration;
 
 /**
  * Game Server Database DAO.
  * @author Zoey76
+ * @version 1.0.0
  */
 public class GameServerDatabaseDAO extends AbstractDatabaseDAO {
-	
+
 	public GameServerDatabaseDAO() {
-		super(gameServer().db().host(), gameServer().db().port(), gameServer().db().name(), gameServer().db().user(), gameServer().db().password());
+		super(Configuration.gameServer());
 	}
 }

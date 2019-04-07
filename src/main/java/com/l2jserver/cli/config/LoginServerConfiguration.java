@@ -18,10 +18,17 @@
  */
 package com.l2jserver.cli.config;
 
+import org.aeonbits.owner.Config.Sources;
+
 /**
  * Login Server configuration interface.
  * @author Zoey76
+ * @version 1.0.0
  */
-public interface LoginServerConfiguration {
-	DatabaseConfiguration db();
+@Sources({
+	"file:./config/login-server.properties",
+	"classpath:config/login-server.properties"
+})
+public interface LoginServerConfiguration extends ServerConfiguration {
+	
 }

@@ -18,15 +18,16 @@
  */
 package com.l2jserver.cli.dao;
 
-import static com.l2jserver.cli.config.Configs.loginServer;
+import com.l2jserver.cli.config.Configuration;
 
 /**
  * Login Server Database DAO.
  * @author Zoey76
+ * @version 1.0.0
  */
 public class LoginServerDatabaseDAO extends AbstractDatabaseDAO {
 	
 	public LoginServerDatabaseDAO() {
-		super(loginServer().db().host(), loginServer().db().port(), loginServer().db().name(), loginServer().db().user(), loginServer().db().password());
+		super(Configuration.loginServer());
 	}
 }

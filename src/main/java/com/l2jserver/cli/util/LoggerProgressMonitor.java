@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 /**
  * Logger progress monitor.
  * @author Zoey76
+ * @version 1.0.0
  */
 public class LoggerProgressMonitor extends BatchingProgressMonitor {
 	private final Logger log;

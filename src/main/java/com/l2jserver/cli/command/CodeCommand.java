@@ -33,6 +33,7 @@ import picocli.CommandLine.Option;
 /**
  * Code command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "code", aliases = "c")
 public class CodeCommand extends AbstractCommand {

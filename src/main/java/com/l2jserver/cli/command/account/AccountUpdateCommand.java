@@ -27,6 +27,7 @@ import picocli.CommandLine.Option;
 /**
  * Account update command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "update")
 public class AccountUpdateCommand extends AbstractCommand {

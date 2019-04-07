@@ -78,6 +78,7 @@ import com.l2jserver.gui.editor.ConfigUserInterface.ConfigFile.ConfigProperty;
  * Configuration Editor GUI.
  * @author KenM
  * @author Zoey76
+ * @version 1.0.0
  */
 public class ConfigUserInterface extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 2609592249095305857L;

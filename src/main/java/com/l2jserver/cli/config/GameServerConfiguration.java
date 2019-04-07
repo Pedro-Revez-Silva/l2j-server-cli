@@ -18,10 +18,17 @@
  */
 package com.l2jserver.cli.config;
 
+import org.aeonbits.owner.Config.Sources;
+
 /**
  * Game Server configuration interface.
  * @author Zoey76
+ * @version 1.0.0
  */
-public interface GameServerConfiguration {
-	DatabaseConfiguration db();
+@Sources({
+	"file:./config/game-server.properties",
+	"classpath:config/game-server.properties"
+})
+public interface GameServerConfiguration extends ServerConfiguration {
+	
 }

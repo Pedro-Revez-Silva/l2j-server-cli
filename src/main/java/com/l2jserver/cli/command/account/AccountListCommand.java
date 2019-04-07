@@ -28,6 +28,7 @@ import picocli.CommandLine.Option;
 /**
  * Account list command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "list")
 public class AccountListCommand extends AbstractCommand {

@@ -26,6 +26,7 @@ import java.io.IOException;
  * File writer.
  * @author mrTJO
  * @author Zoey76
+ * @version 1.0.0
  */
 public class FileWriterStdout extends BufferedWriter {
 	public FileWriterStdout(FileWriter fileWriter) {

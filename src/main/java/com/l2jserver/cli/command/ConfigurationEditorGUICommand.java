@@ -28,6 +28,7 @@ import picocli.CommandLine.Command;
 /**
  * Configuration Editor GUI command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "config", aliases = "gui")
 public class ConfigurationEditorGUICommand extends AbstractCommand {

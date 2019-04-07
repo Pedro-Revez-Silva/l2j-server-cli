@@ -26,6 +26,7 @@ import picocli.CommandLine.Command;
 /**
  * Database command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "database", aliases = "db", subcommands = {
 	DatabaseInstallCommand.class

@@ -24,6 +24,7 @@ import java.io.IOException;
 /**
  * Abstract command.
  * @author Zoey76
+ * @version 1.0.0
  */
 public abstract class AbstractCommand implements Runnable {
 	protected static final String YES = "y";

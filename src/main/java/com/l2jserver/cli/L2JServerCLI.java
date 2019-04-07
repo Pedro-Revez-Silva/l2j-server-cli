@@ -38,6 +38,7 @@ import picocli.CommandLine.Command;
 /**
  * L2J Server CLI.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "l2jcli", version = "1.0", subcommands = {
 	CodeCommand.class,

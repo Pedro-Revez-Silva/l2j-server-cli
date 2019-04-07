@@ -23,6 +23,7 @@ import picocli.CommandLine.Command;
 /**
  * Deploy command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "deploy", aliases = "d")
 public class DeployCommand extends AbstractCommand {

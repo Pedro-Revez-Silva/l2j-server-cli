@@ -15,14 +15,20 @@
 		<slf4j.version>1.7.25</slf4j.version>
 		<log4j.version>2.11.1</log4j.version>
 		<mysql-connector-java.version>8.0.15</mysql-connector-java.version>
-		<commons-configuration2.version>2.4</commons-configuration2.version>
-		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<asciitable.version>0.3.2</asciitable.version>
+		<owner.version>1.0.10</owner.version>
+		<l2j-server-commons.version>2.6.1.1</l2j-server-commons.version>
 		<!-- Plugins -->
 		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>info.picocli</groupId>
@@ -55,19 +61,20 @@
 			<version>${mysql-connector-java.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-configuration2</artifactId>
-			<version>${commons-configuration2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>${commons-beanutils.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>de.vandermeer</groupId>
 			<artifactId>asciitable</artifactId>
 			<version>${asciitable.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aeonbits.owner</groupId>
+			<artifactId>owner-java8</artifactId>
+			<version>${owner.version}</version>
+		</dependency>
+		<!-- L2J -->
+		<dependency>
+			<groupId>org.bitbucket.l2jserver</groupId>
+			<artifactId>l2j-server-commons</artifactId>
+			<version>${l2j-server-commons.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

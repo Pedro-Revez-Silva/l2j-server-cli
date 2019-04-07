@@ -18,16 +18,17 @@
  */
 package com.l2jserver.cli.dao;
 
-import static com.l2jserver.cli.config.Configs.loginServer;
-
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.l2jserver.cli.config.Configuration;
+
 /**
  * Game Server DAO.
  * @author Zoey76
+ * @version 1.0.0
  */
 public class GameServerDAO extends AbstractDAO {
 	
@@ -40,7 +41,7 @@ public class GameServerDAO extends AbstractDAO {
 	private static final String DELETE_ALL_SERVERS = "DELETE FROM gameservers";
 	
 	private GameServerDAO() {
-		super(loginServer().db().host(), loginServer().db().port(), loginServer().db().name(), loginServer().db().user(), loginServer().db().password());
+		super(Configuration.loginServer());
 	}
 	
 	public void unregister(int id) throws SQLException {

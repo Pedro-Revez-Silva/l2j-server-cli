@@ -18,29 +18,31 @@
  */
 package com.l2jserver.cli.config;
 
+import org.aeonbits.owner.ConfigFactory;
+
 /**
- * Database configuration interface.
+ * Configuration.
  * @author Zoey76
+ * @version 1.0.0
  */
-public interface DatabaseConfiguration {
+public enum Configuration {
 	
-	String name();
+	INSTANCE;
 	
-	String host();
+	private LoginServerConfiguration loginServer;
 	
-	int port();
+	private GameServerConfiguration gameServer;
 	
-	String user();
+	private Configuration() {
+		loginServer = ConfigFactory.create(LoginServerConfiguration.class);
+		gameServer = ConfigFactory.create(GameServerConfiguration.class);
+	}
 	
-	String password();
+	public static LoginServerConfiguration loginServer() {
+		return INSTANCE.loginServer;
+	}
 	
-	DatabaseConfiguration withName(String name);
-	
-	DatabaseConfiguration withHost(String host);
-	
-	DatabaseConfiguration withPort(int port);
-	
-	DatabaseConfiguration withUser(String user);
-	
-	DatabaseConfiguration withPassword(String password);
+	public static GameServerConfiguration gameServer() {
+		return INSTANCE.gameServer;
+	}
 }

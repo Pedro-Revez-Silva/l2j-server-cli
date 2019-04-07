@@ -18,7 +18,6 @@
  */
 package com.l2jserver.cli.dao;
 
-import static com.l2jserver.cli.config.Configs.loginServer;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.security.MessageDigest;
@@ -26,11 +25,13 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.l2jserver.cli.config.Configuration;
 import com.l2jserver.cli.model.AccountListType;
 
 /**
  * Account DAO.
  * @author Zoey76
+ * @version 1.0.0
  */
 public class AccountDAO extends AbstractDAO {
 	
@@ -50,7 +51,7 @@ public class AccountDAO extends AbstractDAO {
 	private static final String ALGORITHM = "SHA";
 	
 	private AccountDAO() {
-		super(loginServer().db().host(), loginServer().db().port(), loginServer().db().name(), loginServer().db().user(), loginServer().db().password());
+		super(Configuration.loginServer());
 	}
 	
 	public boolean upsert(String username, String password, int accessLevel) {
@@ -65,6 +66,7 @@ public class AccountDAO extends AbstractDAO {
 			return ps.executeUpdate() > 0;
 		} catch (Exception ex) {
 			System.out.println("There was error while creating/updating account " + username + "!");
+			ex.printStackTrace();
 		}
 		return false;
 	}

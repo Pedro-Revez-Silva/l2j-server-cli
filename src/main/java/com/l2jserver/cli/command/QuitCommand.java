@@ -23,6 +23,7 @@ import picocli.CommandLine.Command;
 /**
  * Quit command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "quit", aliases = "q")
 public class QuitCommand extends AbstractCommand {

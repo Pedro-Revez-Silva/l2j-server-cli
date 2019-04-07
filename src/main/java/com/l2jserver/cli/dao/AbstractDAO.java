@@ -21,67 +21,50 @@ package com.l2jserver.cli.dao;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 import java.util.Scanner;
 
+import com.l2jserver.cli.config.ServerConfiguration;
 import com.l2jserver.cli.util.FileWriterStdout;
 import com.l2jserver.cli.util.SQLFilter;
+import com.l2jserver.commons.database.ConnectionFactory;
 
 /**
  * Abstract DAO.
  * @author Zoey76
+ * @version 1.0.0
  */
 class AbstractDAO {
 	
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 	
-	private final String host;
+	private String database;
 	
-	private final int port;
-	
-	private final String database;
-	
-	private final Properties info;
-	
-	AbstractDAO(String host, int port, String database, String username, String password) {
-		this.host = host;
-		this.port = port;
-		this.database = database;
-		info = new Properties();
-		info.put("user", username);
-		info.put("password", password);
-		info.put("useSSL", "false");
-		info.put("serverTimezone", "UTC");
-		info.put("allowPublicKeyRetrieval", "true");
+	AbstractDAO(ServerConfiguration server) {
+		this.database = server.getDatabaseName();
+		
+		ConnectionFactory.builder() //
+			.withDriver(server.getDatabaseDriver()) //
+			.withUrl(server.getDatabaseURL()) //
+			.withUser(server.getDatabaseUser()) //
+			.withPassword(server.getDatabasePassword()) //
+			.withConnectionPool(server.getDatabaseConnectionPool()) //
+			.withMaxPoolSize(server.getDatabaseMaximumPoolSize()) //
+			.withMaxIdleTime(server.getDatabaseMaximumIdleTime()) //
+			.build();
 	}
 	
 	public String getDatabase() {
 		return database;
 	}
 	
-	protected Connection getConnection() throws SQLException {
-		final String url = String.format("jdbc:mysql://%s:%s/%s", host, port, database);
-		return DriverManager.getConnection(url, info);
-	}
-	
-	public void ensureDatabaseUsage() {
-		final String url = String.format("jdbc:mysql://%s:%s", host, port);
-		try (var con = DriverManager.getConnection(url, info); //
-			var s = con.createStatement()) {
-			s.execute("CREATE DATABASE IF NOT EXISTS `" + database + "`");
-			s.execute("USE `" + database + "`");
-		} catch (Exception ex) {
-			System.err.println("There has been an error ensuring database " + database + " usage!");
-			ex.printStackTrace();
-		}
+	public Connection getConnection() {
+		return ConnectionFactory.getInstance().getConnection();
 	}
 	
 	public void executeSQLScript(File file) {

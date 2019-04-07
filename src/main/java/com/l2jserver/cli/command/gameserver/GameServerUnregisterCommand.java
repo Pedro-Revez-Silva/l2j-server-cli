@@ -27,6 +27,7 @@ import picocli.CommandLine.Option;
 /**
  * Game Server unregister command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "unregister", aliases = "u", description = "Removes a game server from the login server.")
 public class GameServerUnregisterCommand extends AbstractCommand {

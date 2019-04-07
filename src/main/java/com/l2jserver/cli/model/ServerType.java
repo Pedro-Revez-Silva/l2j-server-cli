@@ -21,6 +21,7 @@ package com.l2jserver.cli.model;
 /**
  * Server type.
  * @author Zoey76
+ * @version 1.0.0
  */
 public enum ServerType {
 	GAME,

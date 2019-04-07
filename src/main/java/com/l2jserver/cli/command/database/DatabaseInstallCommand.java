@@ -21,9 +21,10 @@ package com.l2jserver.cli.command.database;
 import java.io.File;
 import java.util.Scanner;
 
+import org.aeonbits.owner.Mutable;
+
 import com.l2jserver.cli.command.AbstractCommand;
-import com.l2jserver.cli.config.Configs;
-import com.l2jserver.cli.config.DatabaseConfiguration;
+import com.l2jserver.cli.config.Configuration;
 import com.l2jserver.cli.dao.AbstractDatabaseDAO;
 import com.l2jserver.cli.dao.GameServerDatabaseDAO;
 import com.l2jserver.cli.dao.LoginServerDatabaseDAO;
@@ -36,45 +37,46 @@ import picocli.CommandLine.Option;
 /**
  * Database install command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "install")
 public class DatabaseInstallCommand extends AbstractCommand {
 	
 	@Option(names = {
 		"-l",
-		"--location"
+		"--sql-location"
 	}, required = true, description = "Files location")
 	private String path;
 	
 	@Option(names = {
-		"-h",
-		"--host"
-	}, description = "Database host")
-	private String host;
+		"-dv",
+		"--database-driver"
+	}, description = "Database Driver")
+	private String driver;
 	
 	@Option(names = {
-		"-p",
-		"--port"
-	}, description = "Database port")
-	private Integer port;
+		"-url",
+		"--database-url"
+	}, description = "Database URL")
+	private String url;
 	
 	@Option(names = {
 		"-u",
-		"--user"
-	}, description = "Database user")
+		"--database-user"
+	}, description = "Database User")
 	private String user;
 	
 	@Option(names = {
 		"-pw",
-		"--password"
-	}, description = "Database password")
+		"--database-password"
+	}, description = "Database Password")
 	private String password;
 	
 	@Option(names = {
-		"-d",
-		"--db"
-	}, description = "Database name")
-	private String database;
+		"-pool",
+		"--connection-pool"
+	}, description = "Connection Pool")
+	private String connectionPool;
 	
 	@Option(names = {
 		"-m",
@@ -98,8 +100,6 @@ public class DatabaseInstallCommand extends AbstractCommand {
 		}
 		
 		final AbstractDatabaseDAO databaseDAO = databaseDAO();
-		
-		databaseDAO.ensureDatabaseUsage();
 		
 		databaseDAO.createDump();
 		
@@ -127,36 +127,36 @@ public class DatabaseInstallCommand extends AbstractCommand {
 	private AbstractDatabaseDAO databaseDAO() {
 		switch (serverType) {
 			case GAME: {
-				overrideConfigs(Configs.gameServer().db());
+				overrideConfigs(Configuration.gameServer());
 				return new GameServerDatabaseDAO();
 			}
 			default:
 			case LOGIN: {
-				overrideConfigs(Configs.loginServer().db());
+				overrideConfigs(Configuration.loginServer());
 				return new LoginServerDatabaseDAO();
 			}
 		}
 	}
 	
-	private void overrideConfigs(DatabaseConfiguration databaseConfiguration) {
-		if (host != null) {
-			databaseConfiguration.withHost(host);
+	private void overrideConfigs(Mutable databaseConfiguration) {
+		if (driver != null) {
+			databaseConfiguration.setProperty("DatabaseDriver", driver);
 		}
 		
-		if (port != null) {
-			databaseConfiguration.withPort(port);
+		if (url != null) {
+			databaseConfiguration.setProperty("DatabaseURL", url);
 		}
 		
 		if (user != null) {
-			databaseConfiguration.withUser(user);
+			databaseConfiguration.setProperty("DatabaseUser", user);
 		}
 		
 		if (password != null) {
-			databaseConfiguration.withPassword(password);
+			databaseConfiguration.setProperty("DatabasePassword", password);
 		}
 		
-		if (database != null) {
-			databaseConfiguration.withName(database);
+		if (connectionPool != null) {
+			databaseConfiguration.setProperty("DatabaseConnectionPool", connectionPool);
 		}
 	}
 }

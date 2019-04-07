@@ -38,6 +38,7 @@ import picocli.CommandLine.Option;
 /**
  * Game Server register command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "register", aliases = "r", description = "Adds a game server to the login server.")
 public class GameServerRegisterCommand extends AbstractCommand {

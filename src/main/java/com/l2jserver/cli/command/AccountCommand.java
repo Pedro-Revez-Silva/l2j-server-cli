@@ -29,6 +29,7 @@ import picocli.CommandLine.Command;
 /**
  * Account command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "account", aliases = "a", subcommands = {
 	AccountCreateCommand.class,

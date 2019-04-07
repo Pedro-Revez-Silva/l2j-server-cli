@@ -23,6 +23,7 @@ import picocli.CommandLine.Command;
 /**
  * Help command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "help", aliases = "h")
 public class HelpCommand extends AbstractCommand {

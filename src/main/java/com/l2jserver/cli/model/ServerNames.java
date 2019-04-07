@@ -24,6 +24,7 @@ import java.util.Map;
 /**
  * Server Names.
  * @author Zoey76
+ * @version 1.0.0
  */
 public class ServerNames {
 	

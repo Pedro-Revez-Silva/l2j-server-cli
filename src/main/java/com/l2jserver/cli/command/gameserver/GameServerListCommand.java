@@ -31,6 +31,7 @@ import picocli.CommandLine.Option;
 /**
  * Game Server list command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "list", aliases = "l", description = "Lists all game servers from login server.")
 public class GameServerListCommand extends AbstractCommand {

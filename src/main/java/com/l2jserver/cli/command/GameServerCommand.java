@@ -28,6 +28,7 @@ import picocli.CommandLine.Command;
 /**
  * Game Server command implementation.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "gameserver", aliases = "gs", subcommands = {
 	GameServerRegisterCommand.class,

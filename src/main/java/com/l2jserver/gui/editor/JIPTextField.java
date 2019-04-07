@@ -40,7 +40,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 /**
+ * IP custom field.
  * @author KenM
+ * @version 1.0.0
  */
 public class JIPTextField extends JPanel implements FocusListener {
 	private static final long serialVersionUID = 1L;

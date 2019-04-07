@@ -27,6 +27,7 @@ import picocli.CommandLine.Option;
 /**
  * Account create command.
  * @author Zoey76
+ * @version 1.0.0
  */
 @Command(name = "create")
 public class AccountCreateCommand extends AbstractCommand {
