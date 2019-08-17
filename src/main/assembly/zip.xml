@@ -18,6 +18,14 @@
 			<source>src/main/resources/l2jcli.sh</source>
 			<outputDirectory>.</outputDirectory>
 		</file>
+		<file>
+			<source>src/main/resources/config/game-server.properties</source>
+			<outputDirectory>config</outputDirectory>
+		</file>
+		<file>
+			<source>src/main/resources/config/login-server.properties</source>
+			<outputDirectory>config</outputDirectory>
+		</file>
 	</files>
 	<dependencySets>
 		<dependencySet>

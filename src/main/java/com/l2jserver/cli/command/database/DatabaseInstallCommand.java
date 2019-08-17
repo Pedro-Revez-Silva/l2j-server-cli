@@ -49,16 +49,16 @@ public class DatabaseInstallCommand extends AbstractCommand {
 	private String path;
 	
 	@Option(names = {
-		"-dv",
-		"--database-driver"
-	}, description = "Database Driver")
-	private String driver;
-	
-	@Option(names = {
 		"-url",
 		"--database-url"
 	}, description = "Database URL")
 	private String url;
+	
+	@Option(names = {
+		"-db",
+		"--database-name"
+	}, description = "Database Name")
+	private String name;
 	
 	@Option(names = {
 		"-u",
@@ -67,16 +67,10 @@ public class DatabaseInstallCommand extends AbstractCommand {
 	private String user;
 	
 	@Option(names = {
-		"-pw",
+		"-p",
 		"--database-password"
-	}, description = "Database Password")
+	}, interactive = true, description = "Database Password")
 	private String password;
-	
-	@Option(names = {
-		"-pool",
-		"--connection-pool"
-	}, description = "Connection Pool")
-	private String connectionPool;
 	
 	@Option(names = {
 		"-m",
@@ -100,6 +94,8 @@ public class DatabaseInstallCommand extends AbstractCommand {
 		}
 		
 		final AbstractDatabaseDAO databaseDAO = databaseDAO();
+		
+		databaseDAO.createDatabase();
 		
 		databaseDAO.createDump();
 		
@@ -139,10 +135,6 @@ public class DatabaseInstallCommand extends AbstractCommand {
 	}
 	
 	private void overrideConfigs(Mutable databaseConfiguration) {
-		if (driver != null) {
-			databaseConfiguration.setProperty("DatabaseDriver", driver);
-		}
-		
 		if (url != null) {
 			databaseConfiguration.setProperty("DatabaseURL", url);
 		}
@@ -155,8 +147,8 @@ public class DatabaseInstallCommand extends AbstractCommand {
 			databaseConfiguration.setProperty("DatabasePassword", password);
 		}
 		
-		if (connectionPool != null) {
-			databaseConfiguration.setProperty("DatabaseConnectionPool", connectionPool);
+		if (name != null) {
+			databaseConfiguration.setProperty("DatabaseName", name);
 		}
 	}
 }

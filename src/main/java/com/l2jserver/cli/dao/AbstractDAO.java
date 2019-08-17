@@ -21,6 +21,7 @@ package com.l2jserver.cli.dao;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.l2jserver.cli.config.ServerConfiguration;
+import com.l2jserver.cli.database.ConnectionFactory;
 import com.l2jserver.cli.util.FileWriterStdout;
 import com.l2jserver.cli.util.SQLFilter;
-import com.l2jserver.commons.database.ConnectionFactory;
 
 /**
  * Abstract DAO.
@@ -41,21 +42,22 @@ import com.l2jserver.commons.database.ConnectionFactory;
  */
 class AbstractDAO {
 	
+	private static final String CREATE_DATABASE = "CREATE DATABASE ";
+	
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+	
+	private ConnectionFactory connectionFactory;
 	
 	private String database;
 	
 	AbstractDAO(ServerConfiguration server) {
 		this.database = server.getDatabaseName();
 		
-		ConnectionFactory.builder() //
-			.withDriver(server.getDatabaseDriver()) //
+		this.connectionFactory = ConnectionFactory.builder() //
+			.withDatabaseName(server.getDatabaseName()) //
 			.withUrl(server.getDatabaseURL()) //
 			.withUser(server.getDatabaseUser()) //
 			.withPassword(server.getDatabasePassword()) //
-			.withConnectionPool(server.getDatabaseConnectionPool()) //
-			.withMaxPoolSize(server.getDatabaseMaximumPoolSize()) //
-			.withMaxIdleTime(server.getDatabaseMaximumIdleTime()) //
 			.build();
 	}
 	
@@ -64,7 +66,16 @@ class AbstractDAO {
 	}
 	
 	public Connection getConnection() {
-		return ConnectionFactory.getInstance().getConnection();
+		return connectionFactory.getConnection();
+	}
+	
+	public void createDatabase() {
+		try (var con = connectionFactory.getPlainConnection(); //
+			var st = con.createStatement()) {
+			st.executeUpdate(CREATE_DATABASE + database);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	public void executeSQLScript(File file) {
