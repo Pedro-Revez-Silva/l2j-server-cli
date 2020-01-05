@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.l2jserver</groupId>
 	<artifactId>l2j-server-cli</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>L2J Server Command Line</name>
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>

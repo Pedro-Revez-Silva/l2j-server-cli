@@ -19,7 +19,6 @@
 package com.l2jserver.cli.command.database;
 
 import java.io.File;
-import java.util.Scanner;
 
 import org.aeonbits.owner.Mutable;
 
@@ -37,52 +36,37 @@ import picocli.CommandLine.Option;
 /**
  * Database install command.
  * @author Zoey76
- * @version 1.0.0
+ * @version 1.0.2
  */
 @Command(name = "install")
 public class DatabaseInstallCommand extends AbstractCommand {
 	
-	@Option(names = {
-		"-l",
-		"--sql-location"
-	}, required = true, description = "Files location")
+	@Option(names = "-sql", required = true, description = "SQL Files location")
 	private String path;
 	
-	@Option(names = {
-		"-url",
-		"--database-url"
-	}, description = "Database URL")
+	@Option(names = "-url", description = "Database URL")
 	private String url;
 	
-	@Option(names = {
-		"-db",
-		"--database-name"
-	}, description = "Database Name")
+	@Option(names = "-db", description = "Database Name")
 	private String name;
 	
-	@Option(names = {
-		"-u",
-		"--database-user"
-	}, description = "Database User")
+	@Option(names = "-u", description = "Database User")
 	private String user;
 	
-	@Option(names = {
-		"-p",
-		"--database-password"
-	}, interactive = true, description = "Database Password")
+	@Option(names = "-p", description = "Database Password")
 	private String password;
 	
-	@Option(names = {
-		"-m",
-		"--mode"
-	}, required = true, description = "Database installation mode")
+	@Option(names = "-m", required = true, description = "Database installation mode")
 	private DatabaseInstallType mode;
 	
-	@Option(names = {
-		"-t",
-		"--type"
-	}, required = true, description = "Server Type")
+	@Option(names = "-t", required = true, description = "Server Type")
 	private ServerType serverType;
+	
+	@Option(names = "-c", description = "Custom Tables")
+	private boolean customs;
+	
+	@Option(names = "-mods", description = "Mods Tables")
+	private boolean mods;
 	
 	@Override
 	public void run() {
@@ -103,18 +87,12 @@ public class DatabaseInstallCommand extends AbstractCommand {
 		
 		databaseDAO.basic(sqlPath);
 		
-		System.out.print("Install custom tables? (y/N): ");
-		try (var s = new Scanner(FILTER_INPUT_STREAM)) {
-			if (YES.equalsIgnoreCase(s.next())) {
-				databaseDAO.custom(sqlPath);
-			}
+		if (customs) {
+			databaseDAO.custom(sqlPath);
 		}
 		
-		System.out.print("Install mod tables? (y/N): ");
-		try (var s = new Scanner(FILTER_INPUT_STREAM)) {
-			if (YES.equalsIgnoreCase(s.next())) {
-				databaseDAO.mods(sqlPath);
-			}
+		if (mods) {
+			databaseDAO.mods(sqlPath);
 		}
 		
 		System.out.println("Database installation complete.");
