@@ -137,7 +137,7 @@
 							<goal>single</goal>
 						</goals>
 						<configuration>
-							<finalName>l2jcli</finalName>
+							<finalName>l2jcli-${project.version}</finalName>
 							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/zip.xml</descriptor>
