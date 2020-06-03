@@ -1,5 +1,7 @@
 package com.l2jserver.cli.config;
 
+import static org.aeonbits.owner.Config.DisableableFeature.PARAMETER_FORMATTING;
+
 import org.aeonbits.owner.Mutable;
 
 /**
@@ -22,6 +24,7 @@ public interface ServerConfiguration extends Mutable {
 	String getDatabaseUser();
 	
 	@Key("DatabasePassword")
+	@DisableFeature(PARAMETER_FORMATTING)
 	String getDatabasePassword();
 	
 	@Key("DatabaseConnectionPool")
