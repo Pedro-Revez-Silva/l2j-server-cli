@@ -32,7 +32,6 @@ public class ServerNames {
 	
 	static {
 		SERVERS.put(0, "Bartz");
-		SERVERS.put(0, "Bartz");
 		SERVERS.put(1, "Sieghardt");
 		SERVERS.put(2, "Kain");
 		SERVERS.put(3, "Lionna");

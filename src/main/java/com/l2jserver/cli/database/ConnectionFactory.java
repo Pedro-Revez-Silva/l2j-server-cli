@@ -30,9 +30,9 @@ import java.util.Properties;
  */
 public class ConnectionFactory {
 	
-	private String url;
+	private final String url;
 	
-	private String databaseName;
+	private final String databaseName;
 	
 	private final Properties properties = new Properties();
 	

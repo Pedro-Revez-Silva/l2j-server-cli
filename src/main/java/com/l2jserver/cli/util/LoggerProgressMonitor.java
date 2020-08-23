@@ -35,14 +35,14 @@ public class LoggerProgressMonitor extends BatchingProgressMonitor {
 	
 	@Override
 	protected void onUpdate(String taskName, int workCurr) {
-		StringBuilder s = new StringBuilder();
+		final var s = new StringBuilder();
 		format(s, taskName, workCurr);
 		send(s);
 	}
 	
 	@Override
 	protected void onEndTask(String taskName, int workCurr) {
-		StringBuilder s = new StringBuilder();
+		final var s = new StringBuilder();
 		format(s, taskName, workCurr);
 		s.append("\n");
 		send(s);
@@ -60,14 +60,14 @@ public class LoggerProgressMonitor extends BatchingProgressMonitor {
 	
 	@Override
 	protected void onUpdate(String taskName, int cmp, int totalWork, int pcnt) {
-		StringBuilder s = new StringBuilder();
+		final var s = new StringBuilder();
 		format(s, taskName, cmp, totalWork, pcnt);
 		send(s);
 	}
 	
 	@Override
 	protected void onEndTask(String taskName, int cmp, int totalWork, int pcnt) {
-		StringBuilder s = new StringBuilder();
+		final var s = new StringBuilder();
 		format(s, taskName, cmp, totalWork, pcnt);
 		s.append("\n");
 		send(s);
@@ -81,9 +81,10 @@ public class LoggerProgressMonitor extends BatchingProgressMonitor {
 			s.append(' ');
 		
 		String endStr = String.valueOf(totalWork);
-		String curStr = String.valueOf(cmp);
-		while (curStr.length() < endStr.length())
-			curStr = " " + curStr;
+		StringBuilder curStr = new StringBuilder(String.valueOf(cmp));
+		while (curStr.length() < endStr.length()) {
+			curStr.insert(0, " ");
+		}
 		if (pcnt < 100)
 			s.append(' ');
 		if (pcnt < 10)

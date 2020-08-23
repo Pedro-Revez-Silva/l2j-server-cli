@@ -38,7 +38,7 @@ public class FileWriterStdout extends BufferedWriter {
 	}
 	
 	public void println(String line) throws IOException {
-		append(line + System.lineSeparator());
+		append(line).append(System.lineSeparator());
 	}
 	
 	public void print(String text) throws IOException {

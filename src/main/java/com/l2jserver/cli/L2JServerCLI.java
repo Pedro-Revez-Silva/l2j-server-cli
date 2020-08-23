@@ -54,13 +54,19 @@ import picocli.CommandLine.Command;
 public class L2JServerCLI implements Callable<Void> {
 	
 	@Override
-	public Void call() throws Exception {
+	public Void call() {
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("~                                     ~");
+		System.out.println("~ (>^_^)> Welcome to L2J CLI  <(^_^<) ~");
+		System.out.println("~                                     ~");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println();
 		try (var isr = new InputStreamReader(System.in); //
 			var br = new BufferedReader(isr)) {
 			while (true) {
-				System.out.print("> ");
-				final String[] args = br.readLine().split(" ");
-				CommandLine.call(new L2JServerCLI(), args);
+				System.out.print(">>> ");
+				final var args = br.readLine().split(" ");
+				new CommandLine(new L2JServerCLI()).execute(args);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -69,6 +75,6 @@ public class L2JServerCLI implements Callable<Void> {
 	}
 	
 	public static void main(String[] args) {
-		CommandLine.call(new L2JServerCLI(), args);
+		new CommandLine(new L2JServerCLI()).execute(args);
 	}
 }

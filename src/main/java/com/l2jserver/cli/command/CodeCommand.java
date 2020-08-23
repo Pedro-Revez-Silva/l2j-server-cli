@@ -62,20 +62,20 @@ public class CodeCommand extends AbstractCommand {
 		try {
 			switch (cloneType) {
 				case BOTH: {
-					LOG.info("Clonning L2J Server");
+					LOG.info("Cloning L2J Server");
 					cloneRepository(coreRepository, coreDirectory);
 					
-					LOG.info("Clonning L2J DataPack");
+					LOG.info("Cloning L2J DataPack");
 					cloneRepository(datapackRepository, datapackDirectory);
 					break;
 				}
 				case CORE: {
-					LOG.info("Clonning L2J Server");
+					LOG.info("Cloning L2J Server");
 					cloneRepository(coreRepository, coreDirectory);
 					break;
 				}
 				case DATAPACK: {
-					LOG.info("Clonning L2J DataPack");
+					LOG.info("Cloning L2J DataPack");
 					cloneRepository(datapackRepository, datapackDirectory);
 					break;
 				}

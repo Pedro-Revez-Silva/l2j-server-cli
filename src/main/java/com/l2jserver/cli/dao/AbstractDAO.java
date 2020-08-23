@@ -46,9 +46,9 @@ class AbstractDAO {
 	
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 	
-	private ConnectionFactory connectionFactory;
+	private final ConnectionFactory connectionFactory;
 	
-	private String database;
+	private final String database;
 	
 	AbstractDAO(ServerConfiguration server) {
 		this.database = server.getDatabaseName();
@@ -96,7 +96,7 @@ class AbstractDAO {
 				
 				line = line.trim();
 				if (!line.isEmpty()) {
-					sb.append(line + System.getProperty("line.separator"));
+					sb.append(line).append(System.getProperty("line.separator"));
 				}
 				
 				if (line.endsWith(";")) {

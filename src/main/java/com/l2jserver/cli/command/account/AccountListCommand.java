@@ -43,6 +43,6 @@ public class AccountListCommand extends AbstractCommand {
 	public void run() {
 		System.out.println("Listing " + accountListType.name().toLowerCase() + " accounts...");
 		
-		AccountDAO.getInstance().listAccounts(accountListType).entrySet().forEach(a -> System.out.println(a.getKey() + " (" + a.getValue() + ")"));
+		AccountDAO.getInstance().listAccounts(accountListType).forEach((key, value) -> System.out.println(key + " (" + value + ")"));
 	}
 }

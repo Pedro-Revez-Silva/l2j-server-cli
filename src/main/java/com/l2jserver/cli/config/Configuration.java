@@ -29,11 +29,11 @@ public enum Configuration {
 	
 	INSTANCE;
 	
-	private LoginServerConfiguration loginServer;
+	private final LoginServerConfiguration loginServer;
 	
-	private GameServerConfiguration gameServer;
+	private final GameServerConfiguration gameServer;
 	
-	private Configuration() {
+	Configuration() {
 		loginServer = ConfigFactory.create(LoginServerConfiguration.class);
 		gameServer = ConfigFactory.create(GameServerConfiguration.class);
 	}
