@@ -27,11 +27,12 @@ import com.l2jserver.cli.util.SQLFilter;
 
 /**
  * Database DAO.
+ * 
  * @author Zoey76
  * @version 1.0.0
  */
 public abstract class AbstractDatabaseDAO extends AbstractDAO {
-	
+
 	AbstractDatabaseDAO(ServerConfiguration server) {
 		super(server);
 	}
@@ -43,7 +44,7 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 			runSQLFiles(modsPath.listFiles(new SQLFilter()));
 		}
 	}
-	
+
 	public void custom(File sqlPath) {
 		final var customPath = new File(sqlPath, "custom");
 		if (customPath.exists()) {
@@ -51,35 +52,36 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 			runSQLFiles(customPath.listFiles(new SQLFilter()));
 		}
 	}
-	
+
 	public void basic(File sqlPath) {
 		System.out.println("Installing basic SQL scripts...");
 		runSQLFiles(sqlPath.listFiles(new SQLFilter()));
 	}
-	
+
 	protected void updates(DatabaseInstallType mode, String cleanup, File sqlPath) {
 		final var userPreferences = Preferences.userRoot();
 		final var updatePath = new File(sqlPath, "updates");
 		final var updatePreferences = getDatabase() + "_update";
-		
+
 		switch (mode) {
-			case FULL: {
-				System.out.println("Executing cleanup script...");
-				
-				runSQLFiles(new File(sqlPath, cleanup));
-				
-				if (updatePath.exists()) {
-					final var sb = new StringBuilder();
-					for (var sqlFile : updatePath.listFiles(new SQLFilter())) {
-						sb.append(sqlFile.getName() + ';');
-					}
-					userPreferences.put(updatePreferences, sb.toString());
+		case FULL: {
+			System.out.println("Executing cleanup script...");
+
+			runSQLFiles(new File(sqlPath, cleanup));
+
+			if (updatePath.exists()) {
+				final var sb = new StringBuilder();
+				for (var sqlFile : updatePath.listFiles(new SQLFilter())) {
+					sb.append(sqlFile.getName() + ';');
 				}
-				break;
+				userPreferences.put(updatePreferences, sb.toString());
 			}
-			case UPDATE: {
-				System.out.println("Installing update SQL scripts...");
-				final var updated = userPreferences.get(updatePreferences, "");
+			break;
+		}
+		case UPDATE: {
+			System.out.println("Installing update SQL scripts...");
+			final var updated = userPreferences.get(updatePreferences, "");
+			if (updatePath.exists()) {
 				for (var sqlFile : updatePath.listFiles(new SQLFilter())) {
 					if (!updated.contains(sqlFile.getName())) {
 						try {
@@ -93,15 +95,16 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 						userPreferences.put(updatePreferences, updated + sqlFile.getName() + ";");
 					}
 				}
-				break;
 			}
+			break;
+		}
 		}
 	}
-	
+
 	public void updates(DatabaseInstallType mode, File sqlPath) {
 		updates(mode, "cleanup/cleanup.sql", sqlPath);
 	}
-	
+
 	private void runSQLFiles(File... sqlFiles) {
 		for (var sqlFile : sqlFiles) {
 			try {

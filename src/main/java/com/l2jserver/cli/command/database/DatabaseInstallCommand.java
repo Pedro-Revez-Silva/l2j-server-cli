@@ -35,39 +35,40 @@ import picocli.CommandLine.Option;
 
 /**
  * Database install command.
+ * 
  * @author Zoey76
  * @version 1.0.2
  */
 @Command(name = "install")
 public class DatabaseInstallCommand extends AbstractCommand {
-	
+
 	@Option(names = "-sql", required = true, description = "SQL Files location")
 	private String path;
-	
+
 	@Option(names = "-url", description = "Database URL")
 	private String url;
-	
+
 	@Option(names = "-db", description = "Database Name")
 	private String name;
-	
+
 	@Option(names = "-u", description = "Database User")
 	private String user;
-	
+
 	@Option(names = "-p", description = "Database Password")
 	private String password;
-	
+
 	@Option(names = "-m", required = true, description = "Database installation mode")
 	private DatabaseInstallType mode;
-	
+
 	@Option(names = "-t", required = true, description = "Server Type")
 	private ServerType serverType;
-	
+
 	@Option(names = "-c", description = "Custom Tables")
 	private boolean customs;
-	
+
 	@Option(names = "-mods", description = "Mods Tables")
 	private boolean mods;
-	
+
 	@Override
 	public void run() {
 		// Validate files exists
@@ -76,55 +77,57 @@ public class DatabaseInstallCommand extends AbstractCommand {
 			System.err.println("The path does not exist!");
 			return;
 		}
-		
+
 		final AbstractDatabaseDAO databaseDAO = databaseDAO();
-		
-		databaseDAO.createDatabase();
-		
+
+		if (mode == DatabaseInstallType.FULL) {
+			databaseDAO.createDatabase();
+		}
+
 		databaseDAO.createDump();
-		
+
 		databaseDAO.updates(mode, sqlPath);
-		
+
 		databaseDAO.basic(sqlPath);
-		
+
 		if (customs) {
 			databaseDAO.custom(sqlPath);
 		}
-		
+
 		if (mods) {
 			databaseDAO.mods(sqlPath);
 		}
-		
+
 		System.out.println("Database installation complete.");
 	}
-	
+
 	private AbstractDatabaseDAO databaseDAO() {
 		switch (serverType) {
-			case GAME: {
-				overrideConfigs(Configuration.gameServer());
-				return new GameServerDatabaseDAO();
-			}
-			default:
-			case LOGIN: {
-				overrideConfigs(Configuration.loginServer());
-				return new LoginServerDatabaseDAO();
-			}
+		case GAME: {
+			overrideConfigs(Configuration.gameServer());
+			return new GameServerDatabaseDAO();
+		}
+		default:
+		case LOGIN: {
+			overrideConfigs(Configuration.loginServer());
+			return new LoginServerDatabaseDAO();
+		}
 		}
 	}
-	
+
 	private void overrideConfigs(Mutable databaseConfiguration) {
 		if (url != null) {
 			databaseConfiguration.setProperty("DatabaseURL", url);
 		}
-		
+
 		if (user != null) {
 			databaseConfiguration.setProperty("DatabaseUser", user);
 		}
-		
+
 		if (password != null) {
 			databaseConfiguration.setProperty("DatabasePassword", password);
 		}
-		
+
 		if (name != null) {
 			databaseConfiguration.setProperty("DatabaseName", name);
 		}
