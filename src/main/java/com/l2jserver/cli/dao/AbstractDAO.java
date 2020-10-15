@@ -69,12 +69,10 @@ class AbstractDAO {
 		return connectionFactory.getConnection();
 	}
 	
-	public void createDatabase() {
+	public void createDatabase() throws SQLException {
 		try (var con = connectionFactory.getPlainConnection(); //
 			var st = con.createStatement()) {
 			st.executeUpdate(CREATE_DATABASE + database);
-		} catch (SQLException ex) {
-			ex.printStackTrace();
 		}
 	}
 	

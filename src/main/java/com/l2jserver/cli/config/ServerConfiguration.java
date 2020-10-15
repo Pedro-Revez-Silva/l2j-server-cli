@@ -7,7 +7,7 @@ import org.aeonbits.owner.Mutable;
 /**
  * ServerConfiguration.
  * @author Zoey76
- * @version 2.6.1.0
+ * @version 1.0.0
  */
 public interface ServerConfiguration extends Mutable {
 	
