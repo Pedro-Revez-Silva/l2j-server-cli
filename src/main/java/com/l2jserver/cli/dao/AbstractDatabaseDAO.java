@@ -19,6 +19,7 @@
 package com.l2jserver.cli.dao;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.prefs.Preferences;
 
 import com.l2jserver.cli.config.ServerConfiguration;
@@ -55,7 +56,8 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 
 	public void basic(File sqlPath) {
 		System.out.println("Installing basic SQL scripts...");
-		runSQLFiles(sqlPath.listFiles(new SQLFilter()));
+		final var files = sqlPath.listFiles(new SQLFilter());
+		runSQLFiles(files);
 	}
 
 	protected void updates(DatabaseInstallType mode, String cleanup, File sqlPath) {
@@ -106,6 +108,8 @@ public abstract class AbstractDatabaseDAO extends AbstractDAO {
 	}
 
 	private void runSQLFiles(File... sqlFiles) {
+		Arrays.sort(sqlFiles);
+		
 		for (var sqlFile : sqlFiles) {
 			try {
 				System.out.println("Running " + sqlFile.getName() + "...");
